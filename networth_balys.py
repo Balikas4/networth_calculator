@@ -13,7 +13,7 @@ class Investment(Asset):  # Inherit from Asset
 def create_layout():
     layout = [
         [sg.Column([
-            [sg.Text('Combined list:', size=30)],
+            [sg.Text('Asset list:', size=30)],
             [sg.Listbox(values=[], size=(30, 6), key='asset_list')],
             [sg.Text('Input new asset name and asset value')],
             [sg.InputText(key='new_asset', size=(20, 1)), sg.InputText(key='asset_price', size=(10, 1)), sg.Button('Add Asset')],
@@ -68,7 +68,7 @@ def main():
                 try:
                     asset_price = float(new_asset_price)
                     assets.append(Asset(name=new_asset_name, price=asset_price))
-                    window['asset_list'].update(values=[f'{asset.name}: ${asset.price:.2f}' for asset in assets])
+                    window['asset_list'].update(values=[f'{asset.name}: ${asset.price:.2f}' for asset in assets if isinstance(asset, Asset)])
                     window['new_asset'].update('')
                     window['asset_price'].update('')
                     update_net_worth(window, assets)
